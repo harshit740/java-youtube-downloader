@@ -1,7 +1,4 @@
 package com.github.kiulian.downloader.model;
-
-import com.github.kiulian.downloader.model.formats.Format;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -15,20 +12,20 @@ class Utils {
         return filename;
     }
 
-    static File getOutputFile(VideoDetails videoDetails, Format format, File outDir) throws IOException {
+    static File getOutputFile(VideoDetails videoDetails, File outDir) throws IOException {
         if (!outDir.exists()) {
             boolean mkdirs = outDir.mkdirs();
             if (!mkdirs)
                 throw new IOException("Could not create output directory: " + outDir);
         }
 
-        String fileName = videoDetails.title() + "." + format.extension().value();
-        File outputFile = new File(outDir, removeIllegalChars(fileName));
+        String fileName = videoDetails.videoId();
+        File outputFile = new File(outDir, fileName);
 
         int i = 1;
         while (outputFile.exists()) {
-            fileName = videoDetails.title() + "(" + i++ + ")" + "." + format.extension().value();
-            outputFile = new File(outDir, removeIllegalChars(fileName));
+            fileName = videoDetails.videoId();
+            outputFile = new File(outDir, fileName);
         }
 
         return outputFile;
