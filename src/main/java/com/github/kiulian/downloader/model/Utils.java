@@ -1,6 +1,7 @@
 package com.github.kiulian.downloader.model;
 import java.io.File;
 import java.io.IOException;
+import com.github.kiulian.downloader.model.formats.Format;
 
 class Utils {
     private static final char[] ILLEGAL_FILENAME_CHARACTERS = {'/', '\n', '\r', '\t', '\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':'};
@@ -12,7 +13,7 @@ class Utils {
         return filename;
     }
 
-    static File getOutputFile(VideoDetails videoDetails, File outDir) throws IOException {
+    static File getOutputFile(VideoDetails videoDetails, Format format,File outDir) throws IOException {
         if (!outDir.exists()) {
             boolean mkdirs = outDir.mkdirs();
             if (!mkdirs)
